@@ -73,6 +73,14 @@ unsafe fn material_handling(fighter: &mut L2CFighterCommon, boma: &mut BattleObj
         }
         VarModule::set_int(boma.object(), vars::pickel::instance::MATERIAL_EFFECT_HANDLER, handle as i32);
     }
+
+    // show flash when steve is 5 mats away from getting a rare material
+    if [25, 45, 55, 85, 95].contains(&index) && VarModule::is_flag(fighter.battle_object, vars::pickel::instance::NOTIF_FLASH_HANDLER) {
+        EFFECT_FLIP(fighter, Hash40::new("sys_smash_flash"), Hash40::new("sys_smash_flash"), Hash40::new("top"), 0, 21, -7, 0, 0, 0, 0.70, 0, 0, 0, 0, 0, 0, true, *EF_FLIP_YZ);
+        VarModule::off_flag(fighter.battle_object, vars::pickel::instance::NOTIF_FLASH_HANDLER);
+    } else if ![25, 45, 55, 85, 95].contains(&index) && !VarModule::is_flag(fighter.battle_object, vars::pickel::instance::NOTIF_FLASH_HANDLER) {
+        VarModule::on_flag(fighter.battle_object, vars::pickel::instance::NOTIF_FLASH_HANDLER);
+    }
 }
 
 // hitstun-related effects

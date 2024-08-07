@@ -19,6 +19,10 @@ unsafe extern "C" fn game_fallattack(agent: &mut L2CAgentBase) {
     let owner_id = WorkModule::get_int(boma, *WEAPON_INSTANCE_WORK_ID_INT_LINK_OWNER) as u32;
     let pickel = utils::util::get_battle_object_from_id(owner_id);
     let fall_distance = VarModule::get_float(pickel, vars::pickel::instance::FORGE_START_Y_POS) - PostureModule::pos_y(boma);
+    let mut sfxlvl = *ATTACK_SOUND_LEVEL_M;
+    if fall_distance >= 16.0 {
+        sfxlvl = *ATTACK_SOUND_LEVEL_L;
+    }
     if is_excute(agent) {
         if sv_battle_object::kind(owner_id) == *FIGHTER_KIND_PICKEL {
             let pickel = utils::util::get_battle_object_from_id(owner_id);
@@ -29,13 +33,13 @@ unsafe extern "C" fn game_fallattack(agent: &mut L2CAgentBase) {
                 //below hitbox shows for 1 frame if this isnt here lol
            } else {
                 wait(lua_state, 2.0);
-                ATTACK(agent, 0, 0, Hash40::new("top"), 5.0 + (fall_distance / 3.2) , 70, (80.0 - (fall_distance / 2.0)), 0, 62, 6.4, 0.0, 4.6, 0.0, Some(0.0), Some(4.8), Some(0.0), 0.7, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 7, 0.0, 0, true, false, false, false, false, *COLLISION_SITUATION_MASK_A, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_normal"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_HEAVY, *ATTACK_REGION_OBJECT);
-                ATTACK(agent, 1, 0, Hash40::new("top"), 5.0 + (fall_distance / 3.2) , 58, (80.0 - fall_distance), 0, 62, 6.4, 0.0, 4.6, 0.0, Some(0.0), Some(4.8), Some(0.0), 0.7, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 7, 0.0, 0, true, false, false, false, false, *COLLISION_SITUATION_MASK_G, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_normal"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_HEAVY, *ATTACK_REGION_OBJECT);
+                ATTACK(agent, 0, 0, Hash40::new("top"), 10.0 + (fall_distance / 3.2) , 70, (90.0 - (fall_distance / 2.8)), 0, 62, 6.4, 0.0, 4.6, 0.0, Some(0.0), Some(4.8), Some(0.0), 0.7, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 7, 0.0, 0, true, false, false, false, false, *COLLISION_SITUATION_MASK_A, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_normal"), sfxlvl, *COLLISION_SOUND_ATTR_HEAVY, *ATTACK_REGION_OBJECT);
+                ATTACK(agent, 1, 0, Hash40::new("top"), 10.0 + (fall_distance / 3.2) , 58, (90.0 - (fall_distance / 2.8)), 0, 62, 6.4, 0.0, 4.6, 0.0, Some(0.0), Some(4.8), Some(0.0), 0.7, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 7, 0.0, 0, true, false, false, false, false, *COLLISION_SITUATION_MASK_G, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_normal"), sfxlvl, *COLLISION_SOUND_ATTR_HEAVY, *ATTACK_REGION_OBJECT);
                 AttackModule::set_attack_height_all(boma, AttackHeight(*ATTACK_HEIGHT_HIGH), false);
             }
         } else {
-            ATTACK(agent, 0, 0, Hash40::new("top"), 5.0 + (fall_distance / 3.2) , 70, (80.0 - (fall_distance / 2.0)), 0, 62, 6.4, 0.0, 4.6, 0.0, Some(0.0), Some(4.8), Some(0.0), 0.7, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 7, 0.0, 0, true, false, false, false, false, *COLLISION_SITUATION_MASK_A, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_normal"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_HEAVY, *ATTACK_REGION_OBJECT);
-            ATTACK(agent, 1, 0, Hash40::new("top"), 5.0 + (fall_distance / 3.2) , 58, (80.0 - (fall_distance / 2.0)), 0, 62, 6.4, 0.0, 4.6, 0.0, Some(0.0), Some(4.8), Some(0.0), 0.7, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 7, 0.0, 0, true, false, false, false, false, *COLLISION_SITUATION_MASK_G, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_normal"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_HEAVY, *ATTACK_REGION_OBJECT);
+            ATTACK(agent, 0, 0, Hash40::new("top"), 10.0 + (fall_distance / 3.2) , 70, (90.0 - (fall_distance / 2.8)), 0, 62, 6.4, 0.0, 4.6, 0.0, Some(0.0), Some(4.8), Some(0.0), 0.7, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 7, 0.0, 0, true, false, false, false, false, *COLLISION_SITUATION_MASK_A, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_normal"), sfxlvl, *COLLISION_SOUND_ATTR_HEAVY, *ATTACK_REGION_OBJECT);
+            ATTACK(agent, 1, 0, Hash40::new("top"), 10.0 + (fall_distance / 3.2) , 58, (90.0 - (fall_distance / 2.8)), 0, 62, 6.4, 0.0, 4.6, 0.0, Some(0.0), Some(4.8), Some(0.0), 0.7, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 7, 0.0, 0, true, false, false, false, false, *COLLISION_SITUATION_MASK_G, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_normal"), sfxlvl, *COLLISION_SOUND_ATTR_HEAVY, *ATTACK_REGION_OBJECT);
             AttackModule::set_attack_height_all(boma, AttackHeight(*ATTACK_HEIGHT_HIGH), false);
         }
     }
@@ -49,9 +53,33 @@ unsafe extern "C" fn game_fallattackride(agent: &mut L2CAgentBase) {
     let pickel_boma = &mut *(*pickel).module_accessor;
     let fall_distance = VarModule::get_float(pickel, vars::pickel::instance::FORGE_START_Y_POS) - PostureModule::pos_y(boma);
     if is_excute(agent) {
-        ATTACK(agent, 0, 0, Hash40::new("top"), 10.0 + (fall_distance / 3.2), 70, (80.0 - (fall_distance / 2.0)), 0, 62, 6.4, 0.0, 4.6, 0.0, Some(0.0), Some(4.8), Some(0.0), 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 7, 0.0, 0, true, false, false, false, false, *COLLISION_SITUATION_MASK_A, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_normal"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_HEAVY, *ATTACK_REGION_OBJECT);
-        ATTACK(agent, 1, 0, Hash40::new("top"), 10.0 + (fall_distance / 3.2), 58, (80.0 - (fall_distance / 2.0)), 0, 62, 6.4, 0.0, 4.6, 0.0, Some(0.0), Some(4.8), Some(0.0), 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 7, 0.0, 0, true, false, false, false, false, *COLLISION_SITUATION_MASK_G, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_normal"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_HEAVY, *ATTACK_REGION_OBJECT);
+        let mut sfxlvl = *ATTACK_SOUND_LEVEL_M;
+        if fall_distance >= 16.0 {
+            sfxlvl = *ATTACK_SOUND_LEVEL_L;
+        }
+        ATTACK(agent, 0, 0, Hash40::new("top"), 10.0 + (fall_distance / 3.2), 70, (90.0 - (fall_distance / 2.8)), 0, 62, 6.4, 0.0, 4.6, 0.0, Some(0.0), Some(4.8), Some(0.0), 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 7, 0.0, 0, true, false, false, false, false, *COLLISION_SITUATION_MASK_A, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_normal"), sfxlvl, *COLLISION_SOUND_ATTR_HEAVY, *ATTACK_REGION_OBJECT);
+        ATTACK(agent, 1, 0, Hash40::new("top"), 10.0 + (fall_distance / 3.2), 58, (90.0 - (fall_distance / 2.8)), 0, 62, 6.4, 0.0, 4.6, 0.0, Some(0.0), Some(4.8), Some(0.0), 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 7, 0.0, 0, true, false, false, false, false, *COLLISION_SITUATION_MASK_G, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_normal"), sfxlvl, *COLLISION_SOUND_ATTR_HEAVY, *ATTACK_REGION_OBJECT);
         AttackModule::set_attack_height_all(boma, AttackHeight(*ATTACK_HEIGHT_HIGH), false);
+    }
+}
+
+unsafe extern "C" fn game_wait(agent: &mut L2CAgentBase) {
+    let lua_state = agent.lua_state_agent;
+    let boma = agent.boma();
+    if is_excute(agent) {
+        QUAKE(agent, *CAMERA_QUAKE_KIND_M);
+        /*ATTACK(agent, 0, 0, Hash40::new("top"), 8.0, 70, 78, 0, 58, 6.4, 0.0, 4.6, 0.0, Some(0.0), Some(4.8), Some(0.0), 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 2, 0.0, 0, true, false, false, false, false, *COLLISION_SITUATION_MASK_G, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_normal"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_HEAVY, *ATTACK_REGION_OBJECT);
+        ATTACK(agent, 1, 0, Hash40::new("top"), 0.0, 361, 0, 0, 0, 5.0, 0.0, 5.0, 0.0, None, None, None, 0.0, 1.0, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_POS, false, 0, 0.0, 10, true, false, true, true, false, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_search"), *ATTACK_SOUND_LEVEL_S, *COLLISION_SOUND_ATTR_NONE, *ATTACK_REGION_OBJECT);
+        AttackModule::set_attack_height_all(boma, AttackHeight(*ATTACK_HEIGHT_HIGH), false);*/
+    }
+    frame(lua_state, 1.0);
+    if is_excute(agent) {
+        ControlModule::set_rumble(boma, Hash40::new("rbkind_77_kanatoko_fall"), 0, false, *BATTLE_OBJECT_ID_INVALID as u32);
+    }
+    frame(lua_state, 2.0);
+    if is_excute(agent) {
+        /*AttackModule::clear(boma, 0, false);
+        AttackModule::clear(boma, 1, false);*/
     }
 }
 
@@ -61,4 +89,6 @@ pub fn install(agent: &mut Agent) {
     agent.acmd("game_fallattack", game_fallattack, Priority::Low);
 
     agent.acmd("game_fallattackride", game_fallattackride, Priority::Low);
+
+    agent.acmd("game_wait", game_wait, Priority::Low);
 }

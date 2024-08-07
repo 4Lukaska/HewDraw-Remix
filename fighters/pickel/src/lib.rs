@@ -12,6 +12,8 @@ pub mod status;
 mod fire;
 mod forge;
 mod melt;
+mod pushobject;
+mod stuff;
 mod trolley;
 
 // material table hook
@@ -60,6 +62,8 @@ pub fn install() {
     fire::install();
     forge::install();
     melt::install();
+    pushobject::install();
+    stuff::install();
     trolley::install();
 
     material_table::install();

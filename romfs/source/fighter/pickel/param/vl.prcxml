@@ -38,9 +38,8 @@
       <float hash="continuous_generate_x_mul_big">0.5</float>
       <int hash="0x2292c2e1b1">1</int>
       <int hash="0x1f4a111697">1</int>
-      <float hash="mining_tool_diamond_frame_mul">0.65</float>
       <int hash="mining_iron_get_num">1</int>
-      <int hash="mining_gold_get_num">6</int>
+      <int hash="mining_gold_get_num">4</int>
       <int hash="mining_red_stone_get_num">3</int>
       <int hash="craft_frame_diamond">40</int>
       <int hash="disable_craft_frame">40</int>
@@ -97,6 +96,10 @@
   </list>
   <struct hash="param_craft_data_table">
     <int hash="craft_material_num_stone">2</int>
-    <int hash="repair_material_num_stone">2</int>
+    <int hash="repair_material_num_stone">1</int>
+    <int hash="craft_material_num_iron">3</int>
+    <int hash="repair_material_num_iron">1</int>
+    <int hash="craft_material_num_gold">3</int>
+    <int hash="repair_material_num_gold">1</int>
   </struct>
 </struct>

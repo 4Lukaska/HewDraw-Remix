@@ -12,9 +12,6 @@ guard_off:
   blend_frames: 4
   extra:
     cancel_frame: 12
-throw_hi:
-  extra:
-    cancel_frame: 40
 attack_hi4:
   extra:
     cancel_frame: 53

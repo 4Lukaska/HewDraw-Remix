@@ -10,6 +10,7 @@ unsafe extern "C" fn recreate_table_main(fighter: &mut L2CFighterCommon) -> L2CV
         StatusModule::change_status_force(fighter.boma(), *FIGHTER_STATUS_KIND_GUARD_OFF, true); // steve will instead parry
         
         return 1.into();
+        // I DONT KNOW HOW TO FIX THIS PLEASE SAVE ME MOKL
     }
 
     smashline::original_status(Main, fighter, *FIGHTER_PICKEL_STATUS_KIND_RECREATE_TABLE)(fighter)

@@ -1224,6 +1224,7 @@ pub mod vars {
             pub const CAN_RESPAWN_TABLE: i32 = 0x0104;
             pub const SHOULD_CYCLE_MATERIAL: i32 = 0x0105;
             pub const SHOULD_RESET_ROT: i32 = 0x0106;
+            pub const NOTIF_FLASH_HANDLER: i32 = 0x0107;
 
             // ints 
             pub const MATERIAL_INDEX: i32 = 0x0100;
