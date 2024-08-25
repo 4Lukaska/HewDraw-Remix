@@ -11,8 +11,12 @@ unsafe extern "C" fn game_specialnstarth(agent: &mut L2CAgentBase) {
 unsafe extern "C" fn game_specialnendh(agent: &mut L2CAgentBase) {
     let lua_state = agent.lua_state_agent;
     let boma = agent.boma();
+    let cancel_frame_param = agent.get_param_int("param_special_n", "cancel_frame") as f32;
+    let special_lag = agent.get_float(*FIGHTER_BAYONETTA_INSTANCE_WORK_ID_FLOAT_SPECIAL_LANDING_FRAME);
     frame(lua_state, 1.0);
-    MotionModule::set_rate(boma, (58.0 - 1.0)/25.0);//32 > 26
+    if !agent.is_status(statuses::bayonetta::SPECIAL_N_CANCEL) || special_lag < cancel_frame_param { 
+        MotionModule::set_rate(boma, (58.0 - 1.0)/25.0);//32 > 26
+    }//do not change motion rate on special lag cancel anim
 }
 
 unsafe extern "C" fn game_specialnendf(agent: &mut L2CAgentBase) {
@@ -61,7 +65,7 @@ unsafe extern "C" fn game_specials(agent: &mut L2CAgentBase) {
     }
     frame(lua_state, 51.0); //50 frames
     if is_excute(agent) {
-        if AttackModule::is_infliction_status(boma, *COLLISION_KIND_MASK_HIT) && agent.is_flag(*FIGHTER_BAYONETTA_STATUS_WORK_ID_SPECIAL_S_FLAG_HIT) {
+        if agent.is_flag(*FIGHTER_BAYONETTA_STATUS_WORK_ID_SPECIAL_S_FLAG_HIT_BEFORE_GUARD) {
             CancelModule::enable_cancel(boma);
         }
     }
